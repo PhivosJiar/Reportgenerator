@@ -10,8 +10,6 @@ import { DemoComponent } from './demo/demo.component';
 import { PieChartComponent } from './component/pie-chart/pie-chart.component';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { zh_TW } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
