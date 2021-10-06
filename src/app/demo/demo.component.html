@@ -1,0 +1,12 @@
+<div class="demo">
+    <div class="report">
+        <app-bar-chart [title]="'test'" [category]="[10,20,30,40,50,60,70]" [data]="[70,60,50,70,50,60,01]"
+            class="barchart" (mousedown)="mousedown('.barchart')"></app-bar-chart>
+        <app-pie-chart class="piechart" (mousedown)="mousedown('.piechart')"></app-pie-chart>
+    </div>
+
+    <div class="inputBox">
+        <input class="inputTitle">
+
+    </div>
+</div>
