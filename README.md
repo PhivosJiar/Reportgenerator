@@ -1,27 +1,13 @@
-# GraffitiWall
+## 下載/開啟專案
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.7.
+確認Node.JS版本 建議為Node8.x 或更高，請在terminal輸入`node -v` 確認版本
 
-## Development server
+確認是否有npm 客戶端，請在terminal輸入`npm -v`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+安裝Angular Cli，請在terminal輸入`npm install -g @angular/cli`
 
-## Code scaffolding
+將套件安裝回專案中，執行`npm install`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+若有套件有依賴漏洞，請執行`npm audit fix`
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+執行`npm serve`開啟server
