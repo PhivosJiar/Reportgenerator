@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pie-chart',
@@ -6,14 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pie-chart.component.scss']
 })
 export class PieChartComponent implements OnInit {
-
-  constructor() { }
+  @Input() chartData: any = '';
   pieChartOption: any = [];
+  data:any[]=[];
+  constructor() { }
+
   ngOnInit(): void {
+      for(let i =0 ; i< this.chartData.category.length; i++){
+      this.data.push({value:this.chartData.data[i],name:this.chartData.category[i]})
+    }
+ 
+    console.log(this.data)
     this.pieChartOption = {
       title: {
-        // text: 'Referer of a Website',
-        // subtext: 'Fake Data',
+        text: this.chartData.title,
         left: 'center'
       },
       tooltip: {
@@ -28,13 +34,7 @@ export class PieChartComponent implements OnInit {
           name: 'Access From',
           type: 'pie',
           radius: '50%',
-          data: [
-            { value: 1048, name: 'Search Engine' },
-            { value: 735, name: 'Direct' },
-            { value: 580, name: 'Email' },
-            { value: 484, name: 'Union Ads' },
-            { value: 300, name: 'Video Ads' }
-          ],
+          data: this.data,
           emphasis: {
             itemStyle: {
               shadowBlur: 10,

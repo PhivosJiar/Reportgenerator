@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { of, fromEvent, animationFrameScheduler } from 'rxjs';
 import { map, switchMap, takeUntil, subscribeOn } from 'rxjs/operators';
-import { EditBox } from '../interface'
 
 @Component({
   selector: 'app-demo',
@@ -10,23 +9,40 @@ import { EditBox } from '../interface'
 })
 export class DemoComponent implements OnInit {
   element: string = '.barchart';
+  iconDisplay:boolean=false;
+  left:number=0;
+  top:number =0;
   editBox = {
     type: 1,
-    title: '11',
-    category: ['123', '456'],
-    data: ['234', '789']
+    title: '',
+    category: [''],
+    data: [''],
+    left:300,
+    top:300
   }
-  i=1
-  reportData :any[] = []
+  reportData: any[] = [
+    {
+      type: 1,
+      title: '',
+      category: [''],
+      data: [''],
+      left:300,
+      top:300
+    }
+  ]
   barChartOption: any = [];
 
-  testContent: any = '<app-pie-chart class="piechart" ></app-pie-chart>'
   constructor() { }
 
   ngOnInit(): void {
+    if (localStorage.getItem('reportData') == null) {
+      localStorage.setItem('reportData',  JSON.stringify(this.reportData));
+    } else {
+      this.reportData=JSON.parse(localStorage.getItem('reportData') || '{}');
+    }
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void { //rxjs抓取物件及改變位置
     const validValue = (value: any, max: number, min: number) => {
       return Math.min(Math.max(value, min), max)
     }
@@ -51,8 +67,10 @@ export class DemoComponent implements OnInit {
         }));
     const position$ = drag$.pipe(subscribeOn(animationFrameScheduler));
     position$.subscribe((pos: any) => {
-      box!.style.top = `${pos.top}px`
-      box!.style.left = `${pos.left}px`
+      box!.style.top = `${pos.top}px`;
+      box!.style.left = `${pos.left}px`;
+      this.top=pos.top;
+      this.left=pos.left
     });
 
   }
@@ -60,15 +78,26 @@ export class DemoComponent implements OnInit {
   mousedown(event: any) {
     this.element = event;
   }
-
+  mouseup(index:number){
+    this.reportData[index].left=this.left;
+    this.reportData[index].top=this.top;
+    localStorage.setItem('reportData', JSON.stringify(this.reportData));
+  }
   generate() {
-    this.i+=1
-    console.log(this.editBox)
+    this.editBox.category = this.editBox.category.toString().split(',');
+    this.editBox.data = this.editBox.data.toString().split(',');
+    let pushData = JSON.parse(JSON.stringify(this.editBox))
+    this.reportData.push(pushData)
 
-    this.reportData.push(this.editBox)
-    console.log(this.reportData)
+    this.editBox.title = '';
+    this.editBox.category = [];
+    this.editBox.data = [];
 
+    localStorage.setItem('reportData', JSON.stringify(this.reportData));
+  }
 
-
+  delete(index: number) {
+    console.log(this.reportData.splice(index, 1))
+    localStorage.setItem('reportData', JSON.stringify(this.reportData));
   }
 }

@@ -16,9 +16,11 @@ export class BarChartComponent implements OnInit {
   ngOnInit(): void {
 
     this.barChartOption = {
+      title:{
+        text:this.chartData.title
+      },
       xAxis: {
         type: 'category',
-        // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
         data: this.chartData.category
       },
       yAxis: {

@@ -17,6 +17,7 @@
     display: flex;
     flex-direction: column;
     align-items:center;
+    flex-wrap: nowrap;
 }
 
 .demo{
@@ -34,3 +35,34 @@
     width: 50%;
     height: 3vh;
 }
+.delete-icon{
+    color: red;
+}
+.chart-icon{
+    color:#D0F7E9 ;
+    font-size: 3.5vw;
+    width: 3.5vw;
+    height: auto;
+    margin-top: 3vh;
+}
+.display{
+    box-shadow: 0 0 30px 1px rgba(51, 51, 51, 0.5);
+}
+.iconList{
+    width: 100%;   
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+}
+.Title{
+    // margin-top: 6vh;
+}
+
+.generate{
+    margin-top: 3vh;
+}
+
+.barchart0{
+    visibility:hidden;
+}
+
