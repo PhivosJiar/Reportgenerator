@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BarChartComponent } from './component/bar-chart/bar-chart.component';
@@ -18,6 +18,7 @@ import { PieChartComponent } from './component/pie-chart/pie-chart.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     NgxEchartsModule.forRoot({
       echarts,
     })

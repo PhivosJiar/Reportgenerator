@@ -7,28 +7,26 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 
 export class BarChartComponent implements OnInit {
-  @Input() title: string = '';
-  @Input() category: any[] = [];
-  @Input() data: any[] = [];
+  @Input() chartData: any = '';
   element: string = '.barchart';
   barChartOption: any = [];
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.title)
+
     this.barChartOption = {
       xAxis: {
         type: 'category',
         // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        data: this.category
+        data: this.chartData.category
       },
       yAxis: {
         type: 'value'
       },
       series: [
         {
-          data: this.data,
+          data: this.chartData.data,
           type: 'bar'
         }
       ]
