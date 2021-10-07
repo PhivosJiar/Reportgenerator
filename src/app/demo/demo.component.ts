@@ -10,26 +10,16 @@ import { map, switchMap, takeUntil, subscribeOn } from 'rxjs/operators';
 })
 export class DemoComponent implements OnInit {
   element: string = '.barchart';
-  iconDisplay:boolean=false;
-  left:number=0;
-  top:number =0;
-  people = [
-    { name : 'Finn',   age: 16,  gender:"M" },
-    { name : 'Jake',   age: 23,  gender:"M" },
-    { name : 'Mary',   age: 18,  gender:"F" },
-    { name : 'Steven', age: 5,   gender:"M" } ,
-    { name : 'Sasha',  age: 20,  gender:"F" },
-    { name : 'Allen',  age: 28,  gender:"M" },
-    { name : 'Ellen',  age: 80,  gender:"F" },
-    { name : 'Joe',    age: 65,  gender:"M" }
-];
+  iconDisplay: boolean = false;
+  left: number = 0;
+  top: number = 0;
   editBox = {
     type: 1,
     title: '',
     category: [''],
     data: [''],
-    left:300,
-    top:300
+    left: 300,
+    top: 300
   }
   reportData: any[] = [
     {
@@ -37,8 +27,8 @@ export class DemoComponent implements OnInit {
       title: '',
       category: [''],
       data: [''],
-      left:300,
-      top:300
+      left: 300,
+      top: 300
     }
   ]
   barChartOption: any = [];
@@ -46,15 +36,15 @@ export class DemoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // console.log(_(this.people).first())
     if (localStorage.getItem('reportData') == null) {
-      localStorage.setItem('reportData',  JSON.stringify(this.reportData));
+      localStorage.setItem('reportData', JSON.stringify(this.reportData));
     } else {
-      this.reportData=JSON.parse(localStorage.getItem('reportData') || '{}');
+      this.reportData = JSON.parse(localStorage.getItem('reportData') || '{}');
     }
   }
 
   ngAfterViewInit(): void { //rxjs抓取物件及改變位置
+
     const validValue = (value: any, max: number, min: number) => {
       return Math.min(Math.max(value, min), max)
     }
@@ -79,21 +69,27 @@ export class DemoComponent implements OnInit {
         }));
     const position$ = drag$.pipe(subscribeOn(animationFrameScheduler));
     position$.subscribe((pos: any) => {
-      box!.style.top = `${pos.top}px`;
-      box!.style.left = `${pos.left}px`;
-      this.top=pos.top;
-      this.left=pos.left
+      throttle(pos);
     });
 
+    let func = (item:any) => {
+      console.log(item)
+      box!.style.top = `${item.top}px`;
+      box!.style.left = `${item.left}px`;
+      this.top = item.top;
+      this.left = item.left
+    }
+
+    let throttle = _.throttle(func, 30);
   }
 
   mousedown(event: any) {
     this.element = event;
   }
-  mouseup(index:number){
-    this.reportData[index].left=this.left;
-    this.reportData[index].top=this.top;
-    localStorage.setItem('reportData', JSON.stringify(this.reportData));
+  mouseup(index: number) {
+      this.reportData[index].left = this.left;
+      this.reportData[index].top = this.top;
+      localStorage.setItem('reportData', JSON.stringify(this.reportData));
   }
   generate() {
     this.editBox.category = this.editBox.category.toString().split(',');
@@ -108,7 +104,7 @@ export class DemoComponent implements OnInit {
   }
 
   delete(index: number) {
-  this.reportData.splice(index, 1)
+    this.reportData.splice(index, 1)
     localStorage.setItem('reportData', JSON.stringify(this.reportData));
   }
 }
