@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as _ from 'lodash';
 import { of, fromEvent, animationFrameScheduler } from 'rxjs';
 import { map, switchMap, takeUntil, subscribeOn } from 'rxjs/operators';
 
@@ -12,6 +13,16 @@ export class DemoComponent implements OnInit {
   iconDisplay:boolean=false;
   left:number=0;
   top:number =0;
+  people = [
+    { name : 'Finn',   age: 16,  gender:"M" },
+    { name : 'Jake',   age: 23,  gender:"M" },
+    { name : 'Mary',   age: 18,  gender:"F" },
+    { name : 'Steven', age: 5,   gender:"M" } ,
+    { name : 'Sasha',  age: 20,  gender:"F" },
+    { name : 'Allen',  age: 28,  gender:"M" },
+    { name : 'Ellen',  age: 80,  gender:"F" },
+    { name : 'Joe',    age: 65,  gender:"M" }
+];
   editBox = {
     type: 1,
     title: '',
@@ -35,6 +46,7 @@ export class DemoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // console.log(_(this.people).first())
     if (localStorage.getItem('reportData') == null) {
       localStorage.setItem('reportData',  JSON.stringify(this.reportData));
     } else {
@@ -86,9 +98,8 @@ export class DemoComponent implements OnInit {
   generate() {
     this.editBox.category = this.editBox.category.toString().split(',');
     this.editBox.data = this.editBox.data.toString().split(',');
-    let pushData = JSON.parse(JSON.stringify(this.editBox))
-    this.reportData.push(pushData)
-
+    this.reportData.push(_.cloneDeep(this.editBox))
+    console.log(this.reportData);
     this.editBox.title = '';
     this.editBox.category = [];
     this.editBox.data = [];
@@ -97,7 +108,7 @@ export class DemoComponent implements OnInit {
   }
 
   delete(index: number) {
-    console.log(this.reportData.splice(index, 1))
+  this.reportData.splice(index, 1)
     localStorage.setItem('reportData', JSON.stringify(this.reportData));
   }
 }

@@ -15,6 +15,7 @@ import { zh_TW } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import * as _ from 'lodash';
 
 registerLocaleData(zh);
 @NgModule({
