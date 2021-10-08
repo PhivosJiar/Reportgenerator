@@ -100,6 +100,7 @@ export class DemoComponent implements OnInit {
     this.element = event;
   }
   mouseup(index: number) {
+    this.element = '.barchart0';
     this.reportData[index].left = this.left;
     this.reportData[index].top = this.top;
     localStorage.setItem('reportData', JSON.stringify(this.reportData));
