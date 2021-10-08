@@ -1,4 +1,4 @@
-<div class="demo">
+<div class="demo" (contextmenu)="$event.preventDefault()" >
 
     <div class="report">
             <div *ngFor="let item of reportData;index as i;">
@@ -24,7 +24,7 @@
         </div>
         <input class="edit Title" placeholder="請輸入標題" [(ngModel)]="editBox!.title">
         <input class="edit Category" placeholder="請輸入分類 每一項以,分開" [(ngModel)]="editBox!.category">
-        <input class="edit Data" placeholder="請輸入內容 每一項以,分開" [(ngModel)]="editBox!.data">
+        <input class="edit Data" placeholder="請輸入內容 每一項以,分開" onkeyup="value=value.replace(/[^\d\,]/g,'') " [(ngModel)]="editBox!.data">
       
         <button class="generate" (click)="generate()">新增</button>
 
@@ -39,7 +39,7 @@
         </div>
         <input class="edit Title" placeholder="請輸入標題" [(ngModel)]="editBox!.title">
         <input class="edit Category" placeholder="請輸入分類 每一項以,分開" [(ngModel)]="editBox!.category">
-        <input class="edit Data" placeholder="請輸入內容 每一項以,分開" [(ngModel)]="editBox!.data">
+        <input class="edit Data" placeholder="請輸入內容 每一項以,分開" onkeyup="value=value.replace(/[^\d\,]/g,'') " [(ngModel)]="editBox!.data">
       
         <button class="generate" (click)="saveChange()">確認</button>
 

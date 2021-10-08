@@ -98,6 +98,7 @@ export class DemoComponent implements OnInit {
     this.reportData = JSON.parse(localStorage.getItem('reportData') || '{}');
   }
   mousedown(event: string) {
+    // event
     this.element = event;
   }
   mouseup(index: number) {
