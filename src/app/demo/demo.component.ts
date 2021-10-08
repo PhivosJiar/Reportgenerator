@@ -109,11 +109,10 @@ export class DemoComponent implements OnInit {
     this.editBox.category = this.editBox.category.toString().split(',');
     this.editBox.data = this.editBox.data.toString().split(',');
     this.reportData.push(_.cloneDeep(this.editBox))
-    this.editBox.title = '';
-    this.editBox.category = [];
-    this.editBox.data = [];
+  
 
     localStorage.setItem('reportData', JSON.stringify(this.reportData));
+    this.clearEditBox();
   }
 
   delete() {
@@ -153,5 +152,13 @@ export class DemoComponent implements OnInit {
   save() {
     localStorage.setItem('reportData', JSON.stringify(this.reportData));
     this.find();
+    this.clearEditBox();
+
+  }
+
+  clearEditBox(){
+    this.editBox.title = '';
+    this.editBox.category = [];
+    this.editBox.data = [];
   }
 }
