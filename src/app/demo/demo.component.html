@@ -6,30 +6,50 @@
                 <!-- <mat-icon class="delete-icon">delete</mat-icon> -->
                 <app-bar-chart *ngIf="item.type==1" [style.left.px]="item.left" [style.top.px]="item.top" [chartData]="item"
                 [class]="'barchart '+'barchart' +i" (mousedown)="mousedown('.barchart'+i)"  (mouseup)="mouseup(i)"
-                (contextmenu)="delete(i);$event.preventDefault()">               
+                (contextmenu)="contextMenu($event, menu,i,item)" >               
                 </app-bar-chart>
           
                 <app-pie-chart *ngIf="item.type==2" [style.left.px]="item.left"  [style.top.px]="item.top" [chartData]="item"
                 [class]="'piechart '+'piechart' +i" (mousedown)="mousedown('.piechart'+i)" (mouseup)="mouseup(i)"
-                (contextmenu)="delete(i);$event.preventDefault()"></app-pie-chart> 
+                (contextmenu)="contextMenu($event, menu,i,item)" ></app-pie-chart> 
             </div>
     </div>
 
-    <div class="editBox">
+    <div *ngIf="!isEdit" class="editBox">
         <div>
         <div class="iconList">
-        <mat-icon [class]="iconDisplay? 'chart-icon' : 'chart-icon display'" (click)="editBox!.type=1;iconDisplay=false">bar_chart</mat-icon>
-        <mat-icon [class]="!iconDisplay? 'chart-icon' : 'chart-icon display'" (click)="editBox!.type=2;iconDisplay=true">pie_chart</mat-icon>
+            <i nz-icon [nzType]="'bar-chart'" nzTheme="outline" [class]="iconDisplay? 'chart-icon' : 'chart-icon display'" (click)="editBox!.type=1;iconDisplay=false"></i>
+            <i nz-icon [nzType]="'pie-chart'" nzTheme="fill" [class]="!iconDisplay? 'chart-icon' : 'chart-icon display'" (click)="editBox!.type=2;iconDisplay=true"></i>
         </div>
         </div>
-        <!-- <button (click)="editBox!.type=1"> 長條圖 </button>
-        <button (click)="editBox!.type=2"> 圓餅圖 </button> -->
         <input class="edit Title" placeholder="請輸入標題" [(ngModel)]="editBox!.title">
         <input class="edit Category" placeholder="請輸入分類 每一項以,分開" [(ngModel)]="editBox!.category">
         <input class="edit Data" placeholder="請輸入內容 每一項以,分開" [(ngModel)]="editBox!.data">
-
-        <button class="generate"(click)="generate()">新增</button>
+      
+        <button class="generate" (click)="generate()">新增</button>
 
     </div>
 
+    <div *ngIf="isEdit" class="editBox">
+        <div>
+        <div class="iconList">
+            <i nz-icon [nzType]="'bar-chart'" nzTheme="outline" [class]="iconDisplay? 'chart-icon' : 'chart-icon display'" (click)="editBox!.type=1;iconDisplay=false"></i>
+            <i nz-icon [nzType]="'pie-chart'" nzTheme="fill" [class]="!iconDisplay? 'chart-icon' : 'chart-icon display'" (click)="editBox!.type=2;iconDisplay=true"></i>
+        </div>
+        </div>
+        <input class="edit Title" placeholder="請輸入標題" [(ngModel)]="editBox!.title">
+        <input class="edit Category" placeholder="請輸入分類 每一項以,分開" [(ngModel)]="editBox!.category">
+        <input class="edit Data" placeholder="請輸入內容 每一項以,分開" [(ngModel)]="editBox!.data">
+      
+        <button class="generate" (click)="saveChange()">確認</button>
+
+    </div>
 </div>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="edit()">編輯</li>
+      <li nz-menu-item (click)="copy()">複製</li>
+      <li nz-menu-item (click)="delete()">刪除</li>
+    </ul>
+  </nz-dropdown-menu>

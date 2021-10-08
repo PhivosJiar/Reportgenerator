@@ -1,18 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import * as _ from 'lodash';
 import { of, fromEvent, animationFrameScheduler } from 'rxjs';
 import { map, switchMap, takeUntil, subscribeOn } from 'rxjs/operators';
-
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.scss']
 })
 export class DemoComponent implements OnInit {
-  element: string = '.barchart';
+  element: string = '.barchart0';
   iconDisplay: boolean = false;
+  isEdit: boolean = false;
   left: number = 0;
   top: number = 0;
+  tempEditBox = {
+    type: 1,
+    title: '',
+    category: [''],
+    data: [''],
+    left: 300,
+    top: 300
+  }
   editBox = {
     type: 1,
     title: '',
@@ -31,15 +41,17 @@ export class DemoComponent implements OnInit {
       top: 300
     }
   ]
+  itemIndex: number = 0;
   barChartOption: any = [];
-
-  constructor() { }
+  constructor(
+    private nzContextMenuService: NzContextMenuService
+  ) { }
 
   ngOnInit(): void {
     if (localStorage.getItem('reportData') == null) {
       localStorage.setItem('reportData', JSON.stringify(this.reportData));
     } else {
-      this.reportData = JSON.parse(localStorage.getItem('reportData') || '{}');
+      this.find();
     }
   }
 
@@ -72,7 +84,7 @@ export class DemoComponent implements OnInit {
       throttle(pos);
     });
 
-    let func = (item:any) => {
+    let func = (item: any) => {
       console.log(item)
       box!.style.top = `${item.top}px`;
       box!.style.left = `${item.left}px`;
@@ -82,14 +94,16 @@ export class DemoComponent implements OnInit {
 
     let throttle = _.throttle(func, 30);
   }
-
-  mousedown(event: any) {
+  find() {
+    this.reportData = JSON.parse(localStorage.getItem('reportData') || '{}');
+  }
+  mousedown(event: string) {
     this.element = event;
   }
   mouseup(index: number) {
-      this.reportData[index].left = this.left;
-      this.reportData[index].top = this.top;
-      localStorage.setItem('reportData', JSON.stringify(this.reportData));
+    this.reportData[index].left = this.left;
+    this.reportData[index].top = this.top;
+    localStorage.setItem('reportData', JSON.stringify(this.reportData));
   }
   generate() {
     this.editBox.category = this.editBox.category.toString().split(',');
@@ -103,8 +117,42 @@ export class DemoComponent implements OnInit {
     localStorage.setItem('reportData', JSON.stringify(this.reportData));
   }
 
-  delete(index: number) {
-    this.reportData.splice(index, 1)
+  delete() {
+    this.reportData.splice(this.itemIndex, 1)
     localStorage.setItem('reportData', JSON.stringify(this.reportData));
+  }
+
+  contextMenu(
+    $event: MouseEvent, menu: NzDropdownMenuComponent
+    , Index: number, item: any): void {
+
+    this.tempEditBox = _.cloneDeep(item)
+    this.nzContextMenuService.create($event, menu);
+    this.itemIndex = Index;
+  }
+
+  closeMenu(): void {
+    this.nzContextMenuService.close();
+  }
+
+  edit() {
+    this.isEdit = true
+    this.editBox = this.reportData[this.itemIndex];
+    this.editBox.type == 1 ? this.iconDisplay = false : this.iconDisplay = true;
+  }
+
+  saveChange() {
+    this.editBox.category = this.editBox.category.toString().split(',');
+    this.editBox.data = this.editBox.data.toString().split(',');
+    this.save();
+  }
+  copy() {
+    this.reportData.push(_.cloneDeep(this.reportData[this.itemIndex]))
+    this.save();
+  }
+
+  save() {
+    localStorage.setItem('reportData', JSON.stringify(this.reportData));
+    this.find();
   }
 }
