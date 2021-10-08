@@ -16,7 +16,6 @@ export class PieChartComponent implements OnInit {
       this.data.push({value:this.chartData.data[i],name:this.chartData.category[i]})
     }
  
-    console.log(this.data)
     this.pieChartOption = {
       title: {
         text: this.chartData.title,

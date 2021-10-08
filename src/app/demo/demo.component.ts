@@ -85,7 +85,6 @@ export class DemoComponent implements OnInit {
     });
 
     let func = (item: any) => {
-      console.log(item)
       box!.style.top = `${item.top}px`;
       box!.style.left = `${item.left}px`;
       this.top = item.top;
@@ -109,7 +108,6 @@ export class DemoComponent implements OnInit {
     this.editBox.category = this.editBox.category.toString().split(',');
     this.editBox.data = this.editBox.data.toString().split(',');
     this.reportData.push(_.cloneDeep(this.editBox))
-    console.log(this.reportData);
     this.editBox.title = '';
     this.editBox.category = [];
     this.editBox.data = [];
