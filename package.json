@@ -2,8 +2,9 @@
   "name": "graffiti-wall",
   "version": "0.0.0",
   "scripts": {
+    "heroku-postbuild": "ng build --prod",
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -12,8 +13,10 @@
   "dependencies": {
     "@angular/animations": "^12.2.8",
     "@angular/cdk": "^12.2.8",
+    "@angular/cli": "~12.2.7",
     "@angular/common": "~12.2.0",
     "@angular/compiler": "~12.2.0",
+    "@angular/compiler-cli": "~12.2.0",
     "@angular/core": "~12.2.0",
     "@angular/forms": "~12.2.0",
     "@angular/material": "^12.2.8",
@@ -23,10 +26,13 @@
     "@ant-design/icons-angular": "^12.0.3",
     "@juggle/resize-observer": "^3.3.1",
     "echarts": "^5.2.1",
+    "express": "^4.17.1",
     "ng-zorro-antd": "^12.0.1",
     "ngx-echarts": "^7.0.2",
+    "path": "^0.12.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
+    "typescript": "~4.3.5",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -44,5 +50,9 @@
     "karma-jasmine-html-reporter": "~1.7.0",
     "resize-observer-polyfill": "^1.5.1",
     "typescript": "~4.3.5"
+  },
+  "engines": {
+    "node": "14.17.6",
+    "npm": "6.14.5"
   }
 }
