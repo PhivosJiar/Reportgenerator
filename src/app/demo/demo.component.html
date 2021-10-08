@@ -2,8 +2,6 @@
 
     <div class="report">
             <div *ngFor="let item of reportData;index as i;">
-
-                <!-- <mat-icon class="delete-icon">delete</mat-icon> -->
                 <app-bar-chart *ngIf="item.type==1" [style.left.px]="item.left" [style.top.px]="item.top" [chartData]="item"
                 [class]="'barchart '+'barchart' +i" (mousedown)="mousedown('.barchart'+i)"  (mouseup)="mouseup(i)"
                 (contextmenu)="contextMenu($event, menu,i,item)" >               
