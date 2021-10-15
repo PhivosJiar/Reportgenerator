@@ -48,6 +48,7 @@ export class DemoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // localStorage.getItem('reportData').subscribe
     if (localStorage.getItem('reportData') == null) {
       localStorage.setItem('reportData', JSON.stringify(this.reportData));
     } else {

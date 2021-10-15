@@ -19,6 +19,7 @@ import * as _ from 'lodash';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 registerLocaleData(zh);
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzTableModule } from 'ng-zorro-antd/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     }),
     BrowserAnimationsModule,
     NzIconModule,
-    NzDropDownModule
+    NzDropDownModule,
+    NzTableModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_TW }],
   bootstrap: [AppComponent]
