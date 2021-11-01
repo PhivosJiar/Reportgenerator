@@ -8,6 +8,4 @@
 
 將套件安裝回專案中，執行`npm install`
 
-若有套件有依賴漏洞，請執行`npm audit fix`
-
 執行`npm serve`開啟server
