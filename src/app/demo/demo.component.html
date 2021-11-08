@@ -20,6 +20,7 @@
             <i nz-icon [nzType]="'pie-chart'" nzTheme="fill" [class]="!iconDisplay? 'chart-icon' : 'chart-icon display'" (click)="editBox!.type=2;iconDisplay=true"></i>
         </div>
         </div>
+        <button (click)="onShareClick()">share</button>
         <input class="edit Title" placeholder="請輸入標題" [(ngModel)]="editBox!.title">
         <input class="edit Category" placeholder="請輸入分類 每一項以,分開" [(ngModel)]="editBox!.category">
         <input class="edit Data" placeholder="請輸入內容 每一項以,分開" onkeyup="value=value.replace(/[^\d\,]/g,'') " [(ngModel)]="editBox!.data">

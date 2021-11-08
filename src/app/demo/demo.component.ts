@@ -161,4 +161,14 @@ export class DemoComponent implements OnInit {
     this.editBox.category = [];
     this.editBox.data = [];
   }
+  public async onShareClick(){
+    const shareData = {
+      title: 'MDN',
+      text: 'Learn web development on MDN!',
+      url: 'https://developer.mozilla.org'
+    }
+
+    await navigator.share(shareData)
+   
+  }
 }
