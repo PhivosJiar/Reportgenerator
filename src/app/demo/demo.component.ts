@@ -163,9 +163,9 @@ export class DemoComponent implements OnInit {
   }
   public async onShareClick(){
     const shareData = {
-      title: 'MDN',
-      text: 'Learn web development on MDN!',
-      url: 'https://developer.mozilla.org'
+      title: 'report-generator',
+      text: '我找到一款超好用的報表產生器<br>超適合你的<br>趕快一起來使用!!!',
+      url: 'https://report-generator-from-angular.herokuapp.com/'
     }
 
     await navigator.share(shareData)
