@@ -161,14 +161,4 @@ export class DemoComponent implements OnInit {
     this.editBox.category = [];
     this.editBox.data = [];
   }
-  public async onShareClick(){
-    const shareData = {
-      title: 'report-generator',
-      text: '我找到一款超好用的報表產生器<br>超適合你的<br>趕快一起來使用!!!',
-      url: 'https://report-generator-from-angular.herokuapp.com/'
-    }
-
-    await navigator.share(shareData)
-   
-  }
 }
